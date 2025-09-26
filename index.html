@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>الواجهة - AMO • LUFF</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        /* الخطوط */
+        @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@700&family=Playfair+Display:wght@700&display=swap');
+
+        /* --------------------------
+        الألوان الأساسية والخطوط
+        -------------------------- */
+        :root {
+            --primary-color: #FF0000; /* أحمر */
+            --secondary-color: #000000; /* أسود */
+            --text-color: #FFFFFF; /* أبيض */
+            --button-bg: #FFFFFF; /* خلفية الزر أبيض */
+            --font-main: 'Cairo', sans-serif;
+            --font-display: 'Playfair Display', serif;
+        }
+
+        /* --------------------------
+        الخلفية المقسمة وحركة الظهور
+        -------------------------- */
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: var(--font-main);
+            color: var(--text-color);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            
+            /* خلفية مقسمة: نصف أحمر ونصف أسود (عموديًا) */
+            background: linear-gradient(to right, var(--primary-color) 50%, var(--secondary-color) 50%);
+            
+            /* حركة ظهور الموقع */
+            animation: fadeIn 1.5s ease-out;
+            overflow-x: hidden; /* لمنع شريط التمرير الأفقي بسبب الحركة */
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* --------------------------
+        شريط القائمة العلوي (الرأس)
+        -------------------------- */
+        .header {
+            background-color: var(--secondary-color);
+            color: var(--text-color);
+            padding: 10px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.4);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+        
+        /* الشعار (الصورة) في أعلى القائمة */
+        .logo img {
+            max-height: 60px;
+            width: auto;
+            border-radius: 5px;
+            object-fit: contain;
+        }
+
+        /* نص "AMO • LUFF" الجميل */
+        .site-title {
+            font-family: var(--font-display);
+            font-size: 2.5em;
+            color: var(--primary-color);
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
+        }
+
+        /* --------------------------
+        زر قائمة الهامبرغر
+        -------------------------- */
+        .menu-toggle {
+            display: none; /* سيظهر فقط على الشاشات الصغيرة */
+            background: none;
+            border: none;
+            color: var(--primary-color);
+            font-size: 1.5em;
+            cursor: pointer;
+            padding: 5px;
+            transition: color 0.3s;
+        }
+        
+        .menu-toggle:hover {
+            color: var(--button-bg);
+        }
+
+        /* --------------------------
+        النافذة المنبثقة (المودال)
+        -------------------------- */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 2000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.85); /* خلفية معتمة */
+            justify-content: center;
+            align-items: center;
+            opacity: 0;
+            transition: opacity 0.5s ease-in-out;
+        }
+        
+        .modal.is-active {
+            display: flex;
+            opacity: 1;
+        }
+
+        .modal-content {
+            background-color: var(--secondary-color);
+            margin: 15% auto;
+            padding: 30px;
+            border: 3px solid var(--primary-color);
+            border-radius: 10px;
+            width: 80%;
+            max-width: 400px;
+            box-shadow: 0 0 20px var(--primary-color);
+            transform: scale(0.8);
+            animation: modalFadeIn 0.5s forwards;
+        }
+
+        @keyframes modalFadeIn {
+            to { transform: scale(1); opacity: 1; }
+        }
+
+        .close-btn {
+            color: var(--primary-color);
+            float: left; /* ليكون في الزاوية اليسرى */
+            font-size: 28px;
+            font-weight: bold;
+            transition: color 0.3s;
+        }
+
+        .close-btn:hover,
+        .close-btn:focus {
+            color: var(--text-color);
+            text-decoration: none;
+            cursor: pointer;
+        }
+        
+        /* --------------------------
+        روابط المودال والأزرار الرئيسية
+        -------------------------- */
+        .modal-links, .main-actions {
+            list-style: none;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            margin-top: 20px;
+        }
+        
+        .modal-links a, .action-btn {
+            display: block;
+            text-align: center;
+            padding: 12px 20px;
+            text-decoration: none;
+            font-size: 1.1em;
+            font-weight: bold;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+        }
+
+        /* تخصيص الأزرار الرئيسية */
+        .action-btn {
+            background-color: var(--button-bg); /* خلفية بيضاء */
+            color: var(--secondary-color); /* نص أسود */
+            border: 2px solid var(--primary-color);
+        }
+        
+        .action-btn:hover {
+            background-color: var(--primary-color); /* قلب الألوان عند التمرير */
+            color: var(--button-bg);
+            border-color: var(--button-bg);
+            transform: translateY(-3px);
+            box-shadow: 0 6px 10px rgba(0, 0, 0, 0.5);
+        }
+
+        /* لون الأيقونات أحمر */
+        .action-btn i {
+            color: var(--primary-color); 
+            margin-left: 10px;
+            transition: color 0.3s;
+        }
+        
+        .action-btn:hover i {
+            color: var(--button-bg); /* الأيقونة تصبح بيضاء عند التمرير */
+        }
+
+        /* زر موقع المصمم في المودال */
+        .designer-link {
+            background-color: var(--primary-color);
+            color: var(--button-bg);
+            border: 2px solid var(--button-bg);
+        }
+
+        .designer-link:hover {
+            background-color: var(--button-bg);
+            color: var(--primary-color);
+            border-color: var(--primary-color);
+        }
+
+        .designer-link:hover i {
+            color: var(--primary-color);
+        }
+
+        /* --------------------------
+        محتوى الصفحة الرئيسية
+        -------------------------- */
+        .main-content {
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 50px 20px;
+        }
+        
+        .welcome-text {
+            font-size: 3em;
+            margin-bottom: 20px;
+            color: var(--text-color);
+            text-shadow: 2px 2px 5px var(--secondary-color);
+        }
+
+        /* --------------------------
+        قسم حقوق النشر
+        -------------------------- */
+        .footer {
+            background-color: var(--secondary-color);
+            color: var(--primary-color);
+            text-align: center;
+            padding: 15px;
+            font-size: 0.9em;
+            border-top: 2px solid var(--primary-color);
+            box-shadow: 0 -2px 6px rgba(0, 0, 0, 0.4);
+        }
+
+        /* --------------------------
+        تعديلات للواجهات الأصغر (الجوال)
+        -------------------------- */
+        @media (max-width: 768px) {
+            .header {
+                justify-content: space-between;
+            }
+            
+            .site-title {
+                font-size: 1.8em;
+            }
+            
+            .menu-toggle {
+                display: block; /* إظهار زر الهامبرغر */
+            }
+            
+            .main-content {
+                padding: 30px 10px;
+            }
+            
+            .welcome-text {
+                font-size: 2em;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <header class="header">
+        <div class="logo">
+            <img src="https://cdn.discordapp.com/attachments/1410679561842327592/1421134586775076994/Polish__.png?ex=68d7ee38&is=68d69cb8&hm=bf295f6711e195fcf90d969e05a6eea50859c074c2155e9a4a60c8527e41f78d&" alt="شعار الواجهة">
+        </div>
+        
+        <h1 class="site-title">AMO • LUFF</h1>
+        
+        <button class="menu-toggle" id="menuToggle">
+            <i class="fas fa-bars"></i>
+        </button>
+    </header>
+
+    <main class="main-content">
+        <p class="welcome-text">أهلاً بك في الواجهة الرئيسية!</p>
+        
+        <div class="main-actions">
+            <a href="https://discord.com/invite/nEaUHGkpX2" class="action-btn" target="_blank">
+                <i class="fab fa-discord"></i> سيرفر الديسكورد
+            </a>
+            
+            <a href="#" class="action-btn">
+                <i class="fas fa-play"></i> ابدأ الآن
+            </a>
+        </div>
+    </main>
+    
+    <div id="myModal" class="modal">
+        <div class="modal-content">
+            <span class="close-btn">&times;</span>
+            
+            <h2>قائمة الموقع</h2>
+            
+            <ul class="modal-links">
+                <li>
+                    <a href="https://sd-community1.github.io/" class="designer-link" target="_blank">
+                        <i class="fas fa-paint-brush"></i> موقع مصمم الموقع
+                    </a>
+                </li>
+                <li>
+                    <a href="#" class="action-btn">
+                        <i class="fas fa-info-circle"></i> حول الموقع
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <footer class="footer">
+        الحقوق محفوظة 2025 &copy;
+    </footer>
+
+    <script>
+        // المتغيرات
+        const modal = document.getElementById("myModal");
+        const btn = document.getElementById("menuToggle");
+        const span = document.getElementsByClassName("close-btn")[0];
+
+        // عند الضغط على زر الهمبرغر، يتم إظهار المودال مع الحركة
+        btn.onclick = function() {
+            modal.style.display = "flex";
+            // إضافة كلاس الحركة بعد فترة قصيرة
+            setTimeout(() => {
+                modal.classList.add('is-active');
+            }, 10);
+        }
+
+        // عند الضغط على زر الإغلاق (X)، يتم إخفاء المودال
+        span.onclick = function() {
+            modal.classList.remove('is-active');
+            // إخفاء المودال بعد انتهاء حركة الإخفاء
+            setTimeout(() => {
+                modal.style.display = "none";
+            }, 500); // يجب أن تتطابق هذه القيمة مع مدة الـ transition في CSS
+        }
+
+        // عند الضغط خارج المودال، يتم إغلاقه أيضاً
+        window.onclick = function(event) {
+            if (event.target == modal) {
+                modal.classList.remove('is-active');
+                 setTimeout(() => {
+                    modal.style.display = "none";
+                }, 500);
+            }
+        }
+    </script>
+</body>
+</html>
