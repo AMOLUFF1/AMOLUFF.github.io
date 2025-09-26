@@ -6,24 +6,17 @@
     <title>الواجهة - AMO • LUFF</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
-        /* الخطوط */
         @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@700&family=Playfair+Display:wght@700&display=swap');
 
-        /* --------------------------
-        الألوان الأساسية والخطوط
-        -------------------------- */
         :root {
-            --primary-color: #FF0000; /* أحمر */
-            --secondary-color: #000000; /* أسود */
-            --text-color: #FFFFFF; /* أبيض */
-            --button-bg: #FFFFFF; /* خلفية الزر أبيض */
+            --primary-color: #FF0000;
+            --secondary-color: #000000;
+            --text-color: #FFFFFF;
+            --button-bg: #FFFFFF;
             --font-main: 'Cairo', sans-serif;
             --font-display: 'Playfair Display', serif;
         }
 
-        /* --------------------------
-        الخلفية المقسمة وحركة الظهور
-        -------------------------- */
         body {
             margin: 0;
             padding: 0;
@@ -32,13 +25,9 @@
             min-height: 100vh;
             display: flex;
             flex-direction: column;
-            
-            /* خلفية مقسمة: نصف أحمر ونصف أسود (عموديًا) */
             background: linear-gradient(to right, var(--primary-color) 50%, var(--secondary-color) 50%);
-            
-            /* حركة ظهور الموقع */
             animation: fadeIn 1.5s ease-out;
-            overflow-x: hidden; /* لمنع شريط التمرير الأفقي بسبب الحركة */
+            overflow-x: hidden;
         }
 
         @keyframes fadeIn {
@@ -46,9 +35,6 @@
             to { opacity: 1; transform: translateY(0); }
         }
 
-        /* --------------------------
-        شريط القائمة العلوي (الرأس)
-        -------------------------- */
         .header {
             background-color: var(--secondary-color);
             color: var(--text-color);
@@ -62,7 +48,6 @@
             z-index: 1000;
         }
         
-        /* الشعار (الصورة) في أعلى القائمة */
         .logo img {
             max-height: 60px;
             width: auto;
@@ -70,7 +55,6 @@
             object-fit: contain;
         }
 
-        /* نص "AMO • LUFF" الجميل */
         .site-title {
             font-family: var(--font-display);
             font-size: 2.5em;
@@ -78,11 +62,8 @@
             text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
         }
 
-        /* --------------------------
-        زر قائمة الهامبرغر
-        -------------------------- */
         .menu-toggle {
-            display: none; /* سيظهر فقط على الشاشات الصغيرة */
+            display: none;
             background: none;
             border: none;
             color: var(--primary-color);
@@ -96,9 +77,6 @@
             color: var(--button-bg);
         }
 
-        /* --------------------------
-        النافذة المنبثقة (المودال)
-        -------------------------- */
         .modal {
             display: none;
             position: fixed;
@@ -107,7 +85,7 @@
             top: 0;
             width: 100%;
             height: 100%;
-            background-color: rgba(0, 0, 0, 0.85); /* خلفية معتمة */
+            background-color: rgba(0, 0, 0, 0.85);
             justify-content: center;
             align-items: center;
             opacity: 0;
@@ -138,7 +116,7 @@
 
         .close-btn {
             color: var(--primary-color);
-            float: left; /* ليكون في الزاوية اليسرى */
+            float: left;
             font-size: 28px;
             font-weight: bold;
             transition: color 0.3s;
@@ -151,9 +129,6 @@
             cursor: pointer;
         }
         
-        /* --------------------------
-        روابط المودال والأزرار الرئيسية
-        -------------------------- */
         .modal-links, .main-actions {
             list-style: none;
             padding: 0;
@@ -176,22 +151,20 @@
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
         }
 
-        /* تخصيص الأزرار الرئيسية */
         .action-btn {
-            background-color: var(--button-bg); /* خلفية بيضاء */
-            color: var(--secondary-color); /* نص أسود */
+            background-color: var(--button-bg);
+            color: var(--secondary-color);
             border: 2px solid var(--primary-color);
         }
         
         .action-btn:hover {
-            background-color: var(--primary-color); /* قلب الألوان عند التمرير */
+            background-color: var(--primary-color);
             color: var(--button-bg);
             border-color: var(--button-bg);
             transform: translateY(-3px);
             box-shadow: 0 6px 10px rgba(0, 0, 0, 0.5);
         }
 
-        /* لون الأيقونات أحمر */
         .action-btn i {
             color: var(--primary-color); 
             margin-left: 10px;
@@ -199,10 +172,9 @@
         }
         
         .action-btn:hover i {
-            color: var(--button-bg); /* الأيقونة تصبح بيضاء عند التمرير */
+            color: var(--button-bg);
         }
 
-        /* زر موقع المصمم في المودال */
         .designer-link {
             background-color: var(--primary-color);
             color: var(--button-bg);
@@ -219,9 +191,6 @@
             color: var(--primary-color);
         }
 
-        /* --------------------------
-        محتوى الصفحة الرئيسية
-        -------------------------- */
         .main-content {
             flex-grow: 1;
             display: flex;
@@ -239,9 +208,6 @@
             text-shadow: 2px 2px 5px var(--secondary-color);
         }
 
-        /* --------------------------
-        قسم حقوق النشر
-        -------------------------- */
         .footer {
             background-color: var(--secondary-color);
             color: var(--primary-color);
@@ -252,9 +218,6 @@
             box-shadow: 0 -2px 6px rgba(0, 0, 0, 0.4);
         }
 
-        /* --------------------------
-        تعديلات للواجهات الأصغر (الجوال)
-        -------------------------- */
         @media (max-width: 768px) {
             .header {
                 justify-content: space-between;
@@ -265,7 +228,7 @@
             }
             
             .menu-toggle {
-                display: block; /* إظهار زر الهامبرغر */
+                display: block;
             }
             
             .main-content {
@@ -332,30 +295,24 @@
     </footer>
 
     <script>
-        // المتغيرات
         const modal = document.getElementById("myModal");
         const btn = document.getElementById("menuToggle");
         const span = document.getElementsByClassName("close-btn")[0];
 
-        // عند الضغط على زر الهمبرغر، يتم إظهار المودال مع الحركة
         btn.onclick = function() {
             modal.style.display = "flex";
-            // إضافة كلاس الحركة بعد فترة قصيرة
             setTimeout(() => {
                 modal.classList.add('is-active');
             }, 10);
         }
 
-        // عند الضغط على زر الإغلاق (X)، يتم إخفاء المودال
         span.onclick = function() {
             modal.classList.remove('is-active');
-            // إخفاء المودال بعد انتهاء حركة الإخفاء
             setTimeout(() => {
                 modal.style.display = "none";
-            }, 500); // يجب أن تتطابق هذه القيمة مع مدة الـ transition في CSS
+            }, 500);
         }
 
-        // عند الضغط خارج المودال، يتم إغلاقه أيضاً
         window.onclick = function(event) {
             if (event.target == modal) {
                 modal.classList.remove('is-active');
